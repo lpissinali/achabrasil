@@ -7,19 +7,14 @@ runConfig:
   cpu: 1
   memoryMiB: 512
 
-# Environment variables and secrets available to the Next.js server.
-# Secrets are stored in Cloud Secret Manager — never commit real values.
-env:
-  - variable: NEXT_PUBLIC_TP_MARKER
-    value: "" # your Travelpayouts marker (public, OK to expose)
-    availability:
-      - BUILD
-      - RUNTIME
-  # - variable: RESEND_API_KEY
-  #   secret: RESEND_API_KEY
-  #   availability:
-  #     - RUNTIME
-  # - variable: TP_API_TOKEN
-  #   secret: TP_API_TOKEN
-  #   availability:
-  #     - RUNTIME
+# Add environment variables and secrets here when needed, e.g.:
+# env:
+#   - variable: NEXT_PUBLIC_TP_MARKER
+#     value: "your-marker"
+#     availability:
+#       - BUILD
+#       - RUNTIME
+#   - variable: RESEND_API_KEY
+#     secret: RESEND_API_KEY
+#     availability:
+#       - RUNTIME
