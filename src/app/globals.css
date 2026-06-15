@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   AchaBrasil brand tokens
+   Palette taken from the approved "Voa" design concepts:
+   teal primary, coral CTA, sun accent, ink text.
+------------------------------------------------------------------- */
+:root {
+  --background: #ffffff;
+  --foreground: #16201e; /* ink */
+
+  --teal: #0e9b8e;
+  --teal-dark: #0a6f66;
+  --coral: #ff6b57;
+  --sun: #ffc53d;
+  --ink: #16201e;
+  --muted: #5a6864;
+  --line: #eceae3;
+  --surface: #f7f6f2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-teal: var(--teal);
+  --color-teal-dark: var(--teal-dark);
+  --color-coral: var(--coral);
+  --color-sun: var(--sun);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-sora);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Price alerts are written via the server (Admin SDK) only.
+    // Clients have no direct read/write access.
+    match /priceAlerts/{doc} {
+      allow read, write: if false;
+    }
+    // Default deny everything else.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "priceAlerts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "active", "order": "ASCENDING" },
+        { "fieldPath": "origin", "order": "ASCENDING" },
+        { "fieldPath": "destination", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
