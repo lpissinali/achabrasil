@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AIRPORTS } from "@/lib/airports";
+import Icon from "./Icon";
 
 export default function AlertForm() {
   const options = Object.values(AIRPORTS);
@@ -9,9 +10,7 @@ export default function AlertForm() {
   const [destination, setDestination] = useState("SSA");
   const [email, setEmail] = useState("");
   const [target, setTarget] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,87 +32,62 @@ export default function AlertForm() {
     }
   }
 
-  const fieldClass =
-    "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm font-semibold text-ink outline-none focus:border-teal";
+  const field =
+    "w-full rounded-[14px] border border-line bg-surface px-4 py-3.5 text-[15px] font-semibold text-ink outline-none focus:border-teal";
+  const lbl = "mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-2";
 
   if (status === "ok") {
     return (
-      <div className="rounded-2xl bg-teal/10 p-6 text-center">
-        <p className="font-display text-lg font-bold text-teal-dark">
-          Alerta criado! ✈️
-        </p>
+      <div className="rounded-[20px] bg-teal-soft p-8 text-center">
+        <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-teal">
+          <Icon name="check" size={24} stroke={3} color="#fff" />
+        </div>
+        <p className="font-display text-lg font-bold text-teal-dark">Alerta criado!</p>
         <p className="mt-1 text-sm text-muted">
-          Vamos te avisar em <strong>{email}</strong> quando o preço baixar.
+          Vamos te avisar em <strong className="text-ink">{email}</strong> quando o preco baixar.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4">
+    <form onSubmit={handleSubmit} className="grid gap-4 rounded-[20px] border border-line bg-surface p-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-            Origem
-          </span>
-          <select value={origin} onChange={(e) => setOrigin(e.target.value)} className={fieldClass}>
+          <span className={lbl}>Origem</span>
+          <select value={origin} onChange={(e) => setOrigin(e.target.value)} className={field}>
             {options.map((a) => (
-              <option key={a.iata} value={a.iata}>
-                {a.city} ({a.iata})
-              </option>
+              <option key={a.iata} value={a.iata}>{a.city} ({a.iata})</option>
             ))}
           </select>
         </label>
         <label className="block">
-          <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-            Destino
-          </span>
-          <select value={destination} onChange={(e) => setDestination(e.target.value)} className={fieldClass}>
+          <span className={lbl}>Destino</span>
+          <select value={destination} onChange={(e) => setDestination(e.target.value)} className={field}>
             {options.map((a) => (
-              <option key={a.iata} value={a.iata}>
-                {a.city} ({a.iata})
-              </option>
+              <option key={a.iata} value={a.iata}>{a.city} ({a.iata})</option>
             ))}
           </select>
         </label>
       </div>
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Seu e-mail
-        </span>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="voce@email.com"
-          className={fieldClass}
-        />
+        <span className={lbl}>Seu e-mail</span>
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="voce@email.com" className={field} />
       </label>
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Me avise abaixo de (R$) — opcional
-        </span>
-        <input
-          type="number"
-          inputMode="numeric"
-          value={target}
-          onChange={(e) => setTarget(e.target.value)}
-          placeholder="300"
-          className={fieldClass}
-        />
+        <span className={lbl}>Me avise abaixo de (R$) - opcional</span>
+        <input type="number" inputMode="numeric" value={target} onChange={(e) => setTarget(e.target.value)} placeholder="300" className={field} />
       </label>
       <button
         type="submit"
         disabled={status === "loading"}
-        className="rounded-xl bg-coral px-6 py-3 text-sm font-bold text-white disabled:opacity-60"
+        className="btn-coral flex items-center justify-center gap-2 rounded-[15px] px-6 py-4 font-display text-base font-bold text-white disabled:opacity-60"
       >
+        <Icon name="bell" size={18} stroke={2.4} color="#fff" />
         {status === "loading" ? "Criando..." : "Criar alerta"}
       </button>
       {status === "error" && (
-        <p className="text-sm text-coral">
-          Algo deu errado. Tente novamente em instantes.
-        </p>
+        <p className="text-sm text-coral">Algo deu errado. Tente novamente em instantes.</p>
       )}
     </form>
   );

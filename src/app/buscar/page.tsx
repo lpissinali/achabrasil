@@ -3,7 +3,7 @@ import { airport } from "@/lib/airports";
 
 export const metadata: Metadata = {
   title: "Resultados da busca",
-  robots: { index: false }, // search-result pages shouldn't be indexed
+  robots: { index: false },
 };
 
 type Props = {
@@ -16,18 +16,15 @@ export default async function BuscarPage({ searchParams }: Props) {
   const d = destination ? airport(destination) : undefined;
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-12">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight">
+    <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8">
+      <h1 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
         {o && d ? `${o.city} → ${d.city}` : "Buscar voos"}
         {date ? ` · ${date}` : ""}
       </h1>
-
-      {/* In production: Travelpayouts White Label results widget renders here,
-          prefilled from the query params above. */}
-      <div className="mt-6 rounded-2xl border border-dashed border-line bg-surface p-10 text-center text-muted">
-        <p className="font-semibold text-ink">Resultados da Travelpayouts</p>
-        <p className="mt-1 text-sm">
-          O widget de resultados (White Label) é renderizado aqui com origem
+      <div className="mt-6 rounded-[20px] border border-dashed border-divider bg-surface p-10 text-center">
+        <p className="font-display font-bold text-ink">Resultados da Travelpayouts</p>
+        <p className="mt-1 text-sm text-muted">
+          O widget de resultados (White Label) e renderizado aqui com origem
           {o ? ` ${o.iata}` : ""} e destino{d ? ` ${d.iata}` : ""}.
         </p>
       </div>

@@ -1,38 +1,43 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------
-   AchaBrasil brand tokens
-   Palette taken from the approved "Voa" design concepts:
-   teal primary, coral CTA, sun accent, ink text.
+   AchaBrasil brand tokens (from the approved Voa desktop design):
+   warm canvas, teal primary, coral CTA, sun accent, ink text.
 ------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #16201e; /* ink */
+  --background: #fbfaf7;
+  --foreground: #16201e;
 
   --teal: #0e9b8e;
   --teal-dark: #0a6f66;
+  --teal-soft: #e6f4f1;
   --coral: #ff6b57;
+  --coral-2: #ff8a5c;
   --sun: #ffc53d;
   --ink: #16201e;
   --muted: #5a6864;
-  --line: #eceae3;
-  --surface: #f7f6f2;
+  --muted-2: #9aa8a4;
+  --line: #f0ece3;
+  --divider: #eee9df;
+  --surface: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
   --color-teal: var(--teal);
   --color-teal-dark: var(--teal-dark);
+  --color-teal-soft: var(--teal-soft);
   --color-coral: var(--coral);
+  --color-coral-2: var(--coral-2);
   --color-sun: var(--sun);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
   --color-line: var(--line);
+  --color-divider: var(--divider);
   --color-surface: var(--surface);
-
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-jakarta);
   --font-display: var(--font-sora);
 }
 
@@ -40,4 +45,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.btn-coral {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%);
+  box-shadow: 0 8px 20px rgba(255, 107, 87, 0.34);
 }

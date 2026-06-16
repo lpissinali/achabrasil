@@ -1,35 +1,35 @@
 import { AIRPORTS, airport } from "./airports";
 
 /**
- * Route definitions that power the SEO landing pages.
- * Each route renders at /voos/[slug] e.g. /voos/gru-ssa
- *
- * `fromPrice` is a static "a partir de" anchor used for SEO copy and JSON-LD.
- * Real-time prices come from the Travelpayouts widget/Data API at runtime.
+ * Route definitions that power the SEO landing pages and the homepage
+ * "Rotas mais buscadas" grid. Each route renders at /voos/[slug] e.g.
+ * /voos/cgh-sdu. `fromPrice` (BRL) is an indicative "a partir de" anchor;
+ * real-time prices come from the Travelpayouts widget/Data API at runtime.
  */
 export type Route = {
   origin: string;
   destination: string;
-  fromPrice: number; // BRL, indicative
+  fromPrice: number;
+  airline?: string;
   popular?: boolean;
 };
 
 export const ROUTES: Route[] = [
-  { origin: "GRU", destination: "SSA", fromPrice: 189, popular: true },
-  { origin: "CGH", destination: "REC", fromPrice: 219, popular: true },
-  { origin: "GRU", destination: "FOR", fromPrice: 229, popular: true },
-  { origin: "GRU", destination: "FLN", fromPrice: 149, popular: true },
-  { origin: "CGH", destination: "SDU", fromPrice: 129, popular: true },
-  { origin: "GRU", destination: "REC", fromPrice: 239 },
-  { origin: "BSB", destination: "SSA", fromPrice: 159 },
-  { origin: "GRU", destination: "POA", fromPrice: 159 },
-  { origin: "GRU", destination: "CWB", fromPrice: 119 },
-  { origin: "CGH", destination: "CNF", fromPrice: 139 },
-  { origin: "GRU", destination: "NAT", fromPrice: 259 },
-  { origin: "GRU", destination: "MCZ", fromPrice: 249 },
+  { origin: "CGH", destination: "SDU", fromPrice: 98, airline: "GOL", popular: true },
+  { origin: "GRU", destination: "SSA", fromPrice: 189, airline: "Azul", popular: true },
+  { origin: "BSB", destination: "REC", fromPrice: 214, airline: "LATAM", popular: true },
+  { origin: "CNF", destination: "FOR", fromPrice: 247, airline: "GOL", popular: true },
+  { origin: "GIG", destination: "POA", fromPrice: 229, airline: "Azul", popular: true },
+  { origin: "CWB", destination: "REC", fromPrice: 268, airline: "LATAM", popular: true },
+  { origin: "GRU", destination: "FOR", fromPrice: 229, airline: "GOL" },
+  { origin: "GRU", destination: "FLN", fromPrice: 149, airline: "Azul" },
+  { origin: "GRU", destination: "REC", fromPrice: 239, airline: "LATAM" },
+  { origin: "BSB", destination: "SSA", fromPrice: 159, airline: "GOL" },
+  { origin: "GRU", destination: "NAT", fromPrice: 259, airline: "Azul" },
+  { origin: "GRU", destination: "MCZ", fromPrice: 249, airline: "LATAM" },
 ];
 
-/** Build a URL slug like "gru-ssa" from a route. */
+/** Build a URL slug like "cgh-sdu" from a route. */
 export function routeSlug(r: Pick<Route, "origin" | "destination">): string {
   return `${r.origin}-${r.destination}`.toLowerCase();
 }
@@ -47,7 +47,7 @@ export function parseRouteSlug(slug: string): Route | undefined {
   );
 }
 
-/** Human title: "Voos baratos de São Paulo (GRU) para Salvador (SSA)". */
+/** Human title: "Voos baratos de Sao Paulo (CGH) para Rio de Janeiro (SDU)". */
 export function routeTitle(r: Route): string {
   const o = airport(r.origin)!;
   const d = airport(r.destination)!;

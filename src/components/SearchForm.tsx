@@ -2,21 +2,34 @@
 
 import { useState } from "react";
 import { AIRPORTS } from "@/lib/airports";
+import Icon from "./Icon";
+import DatePicker from "./DatePicker";
+import Select, { type Option } from "./Select";
 
-/**
- * Flight search form.
- *
- * Phase 1: in production this is where you embed the Travelpayouts
- * White Label search widget (a <script> + container div). This native
- * form is the SEO-friendly fallback / placeholder and submits to the
- * /buscar results page where the widget renders prefilled results.
- */
+const TRIPS = ["Ida e volta", "So ida", "Varios trechos"];
+
+const AIRPORT_OPTIONS: Option[] = Object.values(AIRPORTS).map((a) => ({
+  value: a.iata,
+  label: `${a.city} (${a.iata})`,
+}));
+
+const PAX_OPTIONS: Option[] = [1, 2, 3, 4, 5, 6].map((n) => ({
+  value: String(n),
+  label: `${n} ${n === 1 ? "adulto" : "adultos"}`,
+}));
+
 export default function SearchForm() {
-  const options = Object.values(AIRPORTS);
+  const [trip, setTrip] = useState(0);
   const [origin, setOrigin] = useState("GRU");
   const [destination, setDestination] = useState("SSA");
   const [date, setDate] = useState("");
-  const [pax, setPax] = useState(1);
+  const [ret, setRet] = useState("");
+  const [pax, setPax] = useState("1");
+
+  function swap() {
+    setOrigin(destination);
+    setDestination(origin);
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,88 +37,71 @@ export default function SearchForm() {
       origin,
       destination,
       date,
-      pax: String(pax),
+      ret: trip === 0 ? ret : "",
+      pax,
     });
     window.location.href = `/buscar?${params.toString()}`;
   }
 
-  const fieldClass =
-    "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm font-semibold text-ink outline-none focus:border-teal";
+  const Divider = () => <div className="my-3 hidden w-px self-stretch bg-divider lg:block" />;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="grid gap-3 rounded-2xl bg-white p-4 shadow-lg shadow-ink/5 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto_auto]"
-    >
-      <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Origem
-        </span>
-        <select
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-          className={fieldClass}
+    <form onSubmit={handleSubmit} className="text-left">
+      {/* trip pills */}
+      <div className="mb-3 flex flex-wrap gap-1.5">
+        {TRIPS.map((t, i) => (
+          <button
+            type="button"
+            key={t}
+            onClick={() => setTrip(i)}
+            className={`whitespace-nowrap rounded-full px-4 py-2 text-[14px] font-bold transition-colors ${
+              i === trip ? "bg-ink text-white" : "border border-divider bg-surface text-muted"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {/* bar */}
+      <div className="flex flex-col gap-1 rounded-[20px] bg-surface p-2 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_24px_50px_rgba(20,40,36,0.10)] lg:flex-row lg:items-center lg:gap-0">
+        {/* origin + swap + destination */}
+        <div className="flex flex-[2.2] flex-col items-stretch lg:flex-row lg:items-center">
+          <Select icon="planeUp" label="Origem" value={origin} options={AIRPORT_OPTIONS} onChange={setOrigin} />
+          <button
+            type="button"
+            onClick={swap}
+            aria-label="Inverter origem e destino"
+            className="mx-3 my-1 grid h-9 w-9 flex-shrink-0 place-items-center self-center rounded-full border border-[#e0efea] bg-[#f4faf8] lg:mx-0 lg:my-0"
+          >
+            <Icon name="swap" size={16} color="var(--teal)" />
+          </button>
+          <Select icon="pin" label="Destino" value={destination} options={AIRPORT_OPTIONS} onChange={setDestination} />
+        </div>
+
+        <Divider />
+        <div className="flex flex-[1.7] flex-col lg:flex-row">
+          <DatePicker label="Ida" value={date} onChange={setDate} />
+          {trip === 0 && (
+            <>
+              <Divider />
+              <DatePicker label="Volta" value={ret} onChange={setRet} min={date || undefined} align="right" />
+            </>
+          )}
+        </div>
+
+        <Divider />
+        <div className="lg:w-[160px]">
+          <Select icon="user" label="Passageiros" value={pax} options={PAX_OPTIONS} onChange={setPax} align="right" />
+        </div>
+
+        <button
+          type="submit"
+          className="btn-coral m-1 flex h-14 flex-shrink-0 items-center justify-center gap-2 rounded-[15px] px-6 font-display text-[16px] font-bold text-white lg:h-16"
         >
-          {options.map((a) => (
-            <option key={a.iata} value={a.iata}>
-              {a.city} ({a.iata})
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Destino
-        </span>
-        <select
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-          className={fieldClass}
-        >
-          {options.map((a) => (
-            <option key={a.iata} value={a.iata}>
-              {a.city} ({a.iata})
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Ida
-        </span>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className={fieldClass}
-        />
-      </label>
-
-      <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-          Passageiros
-        </span>
-        <select
-          value={pax}
-          onChange={(e) => setPax(Number(e.target.value))}
-          className={fieldClass}
-        >
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <option key={n} value={n}>
-              {n}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <button
-        type="submit"
-        className="self-end rounded-xl bg-coral px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] active:scale-95"
-      >
-        Buscar voos
-      </button>
+          <Icon name="search" size={20} stroke={2.4} color="#fff" /> Buscar voos
+        </button>
+      </div>
     </form>
   );
 }
