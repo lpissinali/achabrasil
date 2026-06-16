@@ -65,12 +65,12 @@ export default function DatePicker({
   }
 
   return (
-    <div ref={ref} className="relative flex flex-1 items-center gap-3 px-3 py-2.5 lg:px-5">
+    <div ref={ref} className="relative flex min-w-0 flex-1 items-center gap-3 px-3 py-2.5 lg:px-5">
       <Icon name="cal" size={20} color="var(--teal)" />
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="min-w-0 flex-1 text-left"
+        className="flex min-w-0 flex-1 items-center justify-between gap-1 text-left"
       >
         <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-2">
           {label}

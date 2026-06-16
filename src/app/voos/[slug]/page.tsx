@@ -83,7 +83,7 @@ export default async function RoutePage({ params }: Props) {
           href={`/buscar?origin=${route.origin}&destination=${route.destination}`}
           className="btn-coral mt-5 inline-flex items-center gap-2 rounded-[15px] px-6 py-3 text-sm font-bold text-white"
         >
-          <Icon name="search" size={18} stroke={2.4} color="#fff" /> Buscar voos {route.origin} &rarr; {route.destination}
+          <Icon name="search" size={18} stroke={2.4} color="#fff" /> Ver voos {route.origin} &rarr; {route.destination}
         </Link>
       </div>
 

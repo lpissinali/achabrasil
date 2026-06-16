@@ -51,9 +51,9 @@ export default function RootLayout({
       className={`${jakarta.variable} ${sora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-ink">
-        {/* Travelpayouts affiliate loader - runs on every page */}
+        {/* Travelpayouts AchaBrasil verification loader - runs on every page */}
         <Script id="travelpayouts" strategy="afterInteractive">
-          {`(function () { var s = document.createElement("script"); s.async = 1; s.src = "https://emrld.ltd/NTM5NTQ0.js?t=539544"; document.head.appendChild(s); })();`}
+          {`(function () { var s = document.createElement("script"); s.async = 1; s.src = "https://emrld.ltd/NTQwMzMx.js?t=540331"; document.head.appendChild(s); })();`}
         </Script>
         <Header />
         <main className="flex-1">{children}</main>

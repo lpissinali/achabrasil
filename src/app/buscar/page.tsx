@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Icon from "@/components/Icon";
+import BuscarResults from "@/components/BuscarResults";
 import { airport } from "@/lib/airports";
 
 export const metadata: Metadata = {
@@ -7,27 +10,60 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ origin?: string; destination?: string; date?: string }>;
+  searchParams: Promise<{
+    origin?: string;
+    destination?: string;
+    date?: string;
+    ret?: string;
+    adults?: string;
+  }>;
 };
 
+function fmtDate(iso?: string): string {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "short" }).format(
+    new Date(y, m - 1, d),
+  );
+}
+
 export default async function BuscarPage({ searchParams }: Props) {
-  const { origin, destination, date } = await searchParams;
-  const o = origin ? airport(origin) : undefined;
-  const d = destination ? airport(destination) : undefined;
+  const sp = await searchParams;
+  const o = sp.origin ? airport(sp.origin) : undefined;
+  const d = sp.destination ? airport(sp.destination) : undefined;
+  const adults = Number(sp.adults) || 1;
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-        {o && d ? `${o.city} → ${d.city}` : "Buscar voos"}
-        {date ? ` · ${date}` : ""}
+    <div className="mx-auto max-w-3xl px-5 py-12 sm:px-8">
+      <nav className="flex items-center gap-1 text-sm text-muted">
+        <Link href="/" className="hover:text-ink">Inicio</Link>
+        <Icon name="chevR" size={14} color="var(--muted-2)" />
+        <span>Resultados</span>
+      </nav>
+
+      <h1 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
+        {o && d ? `${o.city} - ${d.city}` : "Buscar voos"}
       </h1>
-      <div className="mt-6 rounded-[20px] border border-dashed border-divider bg-surface p-10 text-center">
-        <p className="font-display font-bold text-ink">Resultados da Travelpayouts</p>
+      {o && d && (
         <p className="mt-1 text-sm text-muted">
-          O widget de resultados (White Label) e renderizado aqui com origem
-          {o ? ` ${o.iata}` : ""} e destino{d ? ` ${d.iata}` : ""}.
+          {o.iata} &rarr; {d.iata}
+          {sp.date ? ` · ${fmtDate(sp.date)}` : ""}
+          {sp.ret ? ` - ${fmtDate(sp.ret)}` : ""}
+          {` · ${adults} ${adults === 1 ? "adulto" : "adultos"}`}
         </p>
-      </div>
+      )}
+
+      {o && d ? (
+        <BuscarResults
+          origin={o.iata}
+          destination={d.iata}
+          date={sp.date}
+          ret={sp.ret}
+          adults={adults}
+        />
+      ) : (
+        <p className="mt-6 text-muted">Informe origem e destino na busca.</p>
+      )}
     </div>
   );
 }
