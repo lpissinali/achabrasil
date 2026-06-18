@@ -25,16 +25,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "E-mail inválido." }, { status: 400 });
     }
 
-    await db().collection("priceAlerts").add({
+    const unsubToken = crypto.randomUUID();
+    const ref = await db().collection("priceAlerts").add({
       origin,
       destination,
       email,
       targetPrice,
       active: true,
+      unsubToken,
       createdAt: new Date().toISOString(),
     });
 
-    return NextResponse.json({ ok: true }, { status: 201 });
+    return NextResponse.json({ ok: true, id: ref.id }, { status: 201 });
   } catch (err) {
     console.error("alertas POST failed", err);
     return NextResponse.json({ error: "Erro interno." }, { status: 500 });

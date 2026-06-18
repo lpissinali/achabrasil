@@ -53,3 +53,76 @@ export function aviasalesSearchUrl(p: {
   });
   return `https://www.aviasales.com/search/${path}?${params.toString()}`;
 }
+
+/**
+ * Travelpayouts flight search-results widget (AchaBrasil project).
+ * Renders a form + live results in PT-BR / BRL with our teal accent.
+ * Override with NEXT_PUBLIC_TP_WIDGET_SRC if you regenerate the widget.
+ */
+export const TP_WIDGET_SRC =
+  process.env.NEXT_PUBLIC_TP_WIDGET_SRC ||
+  "https://tpemd.com/content?currency=brl&trs=540331&shmarker=739432&powered_by=true&locale=pt&show_header=true&limit=3&primary_color=00AE98&results_background_color=FFFFFF&form_background_color=FFFFFF&campaign_id=111&promo_id=4478";
+
+/**
+ * Append the user's selected route/dates to the widget script URL so the
+ * Travelpayouts widget can open pre-filled. These params are best-effort:
+ * if the widget/promo supports them it loads prefilled (with_request also
+ * auto-runs the search); if not, they're harmlessly ignored.
+ */
+export function buildWidgetSrc(p: {
+  origin: string;
+  destination: string;
+  date?: string;
+  ret?: string;
+  adults?: number;
+}): string {
+  const u = new URL(TP_WIDGET_SRC);
+  u.searchParams.set("origin", p.origin.toUpperCase());
+  u.searchParams.set("destination", p.destination.toUpperCase());
+  if (p.date) u.searchParams.set("depart_date", p.date);
+  if (p.ret) u.searchParams.set("return_date", p.ret);
+  if (p.adults && p.adults > 1) u.searchParams.set("adults", String(p.adults));
+  if (!p.ret) u.searchParams.set("one_way", "true");
+  u.searchParams.set("with_request", "true");
+  return u.toString();
+}
+
+/**
+ * Localized Aviasales flight-search link (Portuguese + BRL + marker).
+ * Uses the documented search.aviasales.com/flights/ format, which honors
+ * the `locale` param (unlike the Data API's /search/<path> links).
+ */
+export function aviasalesFlightsUrl(p: {
+  origin: string;
+  destination: string;
+  departDate?: string;
+  returnDate?: string;
+  adults?: number;
+}): string {
+  const params = new URLSearchParams({
+    origin_iata: p.origin.toUpperCase(),
+    destination_iata: p.destination.toUpperCase(),
+    trip_class: "0",
+    adults: String(p.adults && p.adults > 0 ? p.adults : 1),
+    children: "0",
+    infants: "0",
+    locale: "pt",
+    marker: TP_MARKER,
+    one_way: p.returnDate ? "false" : "true",
+    with_request: "true",
+  });
+  if (p.departDate) params.set("depart_date", p.departDate.slice(0, 10));
+  if (p.returnDate) params.set("return_date", p.returnDate.slice(0, 10));
+  return `https://search.aviasales.com/flights/?${params.toString()}`;
+}
+
+/** Hotellook (Travelpayouts) hotel-search deep link, marker-tracked, PT-BR/BRL. */
+export function hotellookUrl(city: string): string {
+  const params = new URLSearchParams({
+    destination: city,
+    marker: TP_MARKER,
+    locale: "pt",
+    currency: "brl",
+  });
+  return `https://search.hotellook.com/?${params.toString()}`;
+}

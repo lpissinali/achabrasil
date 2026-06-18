@@ -51,3 +51,13 @@ body {
   background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%);
   box-shadow: 0 8px 20px rgba(255, 107, 87, 0.34);
 }
+
+/* ---- Long-form legal / article content ---- */
+.prose-doc { color: var(--muted); line-height: 1.75; }
+.prose-doc h2 { color: var(--ink); font-family: var(--font-sora), system-ui, sans-serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.01em; margin-top: 2rem; margin-bottom: 0.6rem; }
+.prose-doc h3 { color: var(--ink); font-weight: 700; font-size: 1.05rem; margin-top: 1.4rem; margin-bottom: 0.4rem; }
+.prose-doc p { margin-bottom: 0.9rem; }
+.prose-doc ul { margin: 0 0 1rem 1.1rem; list-style: disc; }
+.prose-doc li { margin-bottom: 0.4rem; }
+.prose-doc a { color: var(--teal-dark); font-weight: 600; text-decoration: underline; }
+.prose-doc strong { color: var(--ink); font-weight: 700; }

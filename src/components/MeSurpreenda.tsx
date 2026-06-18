@@ -16,9 +16,9 @@ export default function MeSurpreenda() {
   const [budget, setBudget] = useState("200");
 
   function descobrir() {
-    const params = new URLSearchParams({ origin: "GRU", surpreenda: "1" });
+    const params = new URLSearchParams({ origin: "SAO" });
     if (budget) params.set("budget", budget);
-    router.push(`/buscar?${params.toString()}`);
+    router.push(`/me-surpreenda?${params.toString()}`);
   }
 
   return (

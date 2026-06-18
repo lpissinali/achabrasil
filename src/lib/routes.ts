@@ -27,6 +27,15 @@ export const ROUTES: Route[] = [
   { origin: "BSB", destination: "SSA", fromPrice: 159, airline: "GOL" },
   { origin: "GRU", destination: "NAT", fromPrice: 259, airline: "Azul" },
   { origin: "GRU", destination: "MCZ", fromPrice: 249, airline: "LATAM" },
+  // Internacionais
+  { origin: "GRU", destination: "EZE", fromPrice: 899, airline: "LATAM" },
+  { origin: "GRU", destination: "SCL", fromPrice: 1099, airline: "LATAM" },
+  { origin: "GRU", destination: "LIM", fromPrice: 1290, airline: "LATAM" },
+  { origin: "GRU", destination: "MVD", fromPrice: 990, airline: "GOL" },
+  { origin: "GRU", destination: "BOG", fromPrice: 1490, airline: "Avianca" },
+  { origin: "GRU", destination: "MIA", fromPrice: 2390, airline: "LATAM" },
+  { origin: "GRU", destination: "LIS", fromPrice: 2890, airline: "LATAM" },
+  { origin: "GRU", destination: "CUN", fromPrice: 1990, airline: "LATAM" },
 ];
 
 /** Build a URL slug like "cgh-sdu" from a route. */

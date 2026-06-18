@@ -3,9 +3,14 @@
 import { useState } from "react";
 import { AIRPORTS } from "@/lib/airports";
 import Icon from "./Icon";
+import Select, { type Option } from "./Select";
+
+const AIRPORT_OPTIONS: Option[] = Object.values(AIRPORTS).map((a) => ({
+  value: a.iata,
+  label: `${a.city} (${a.iata})`,
+}));
 
 export default function AlertForm() {
-  const options = Object.values(AIRPORTS);
   const [origin, setOrigin] = useState("GRU");
   const [destination, setDestination] = useState("SSA");
   const [email, setEmail] = useState("");
@@ -44,7 +49,7 @@ export default function AlertForm() {
         </div>
         <p className="font-display text-lg font-bold text-teal-dark">Alerta criado!</p>
         <p className="mt-1 text-sm text-muted">
-          Vamos te avisar em <strong className="text-ink">{email}</strong> quando o preco baixar.
+          Vamos te avisar em <strong className="text-ink">{email}</strong> quando o preço baixar.
         </p>
       </div>
     );
@@ -53,22 +58,18 @@ export default function AlertForm() {
   return (
     <form onSubmit={handleSubmit} className="grid gap-4 rounded-[20px] border border-line bg-surface p-6">
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block">
+        <div>
           <span className={lbl}>Origem</span>
-          <select value={origin} onChange={(e) => setOrigin(e.target.value)} className={field}>
-            {options.map((a) => (
-              <option key={a.iata} value={a.iata}>{a.city} ({a.iata})</option>
-            ))}
-          </select>
-        </label>
-        <label className="block">
+          <div className="flex rounded-[14px] border border-line bg-surface">
+            <Select icon="planeUp" label="Saindo de" value={origin} options={AIRPORT_OPTIONS} onChange={setOrigin} />
+          </div>
+        </div>
+        <div>
           <span className={lbl}>Destino</span>
-          <select value={destination} onChange={(e) => setDestination(e.target.value)} className={field}>
-            {options.map((a) => (
-              <option key={a.iata} value={a.iata}>{a.city} ({a.iata})</option>
-            ))}
-          </select>
-        </label>
+          <div className="flex rounded-[14px] border border-line bg-surface">
+            <Select icon="pin" label="Indo para" value={destination} options={AIRPORT_OPTIONS} onChange={setDestination} />
+          </div>
+        </div>
       </div>
       <label className="block">
         <span className={lbl}>Seu e-mail</span>

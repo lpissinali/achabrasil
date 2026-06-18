@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Icon from "@/components/Icon";
-import BuscarResults from "@/components/BuscarResults";
+import Results from "@/components/Results";
 import { airport } from "@/lib/airports";
+import { cheapestForRoute } from "@/lib/tp-data";
 
 export const metadata: Metadata = {
   title: "Resultados da busca",
@@ -16,22 +17,27 @@ type Props = {
     date?: string;
     ret?: string;
     adults?: string;
+    flex?: string;
   }>;
 };
-
-function fmtDate(iso?: string): string {
-  if (!iso) return "";
-  const [y, m, d] = iso.split("-").map(Number);
-  return new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "short" }).format(
-    new Date(y, m - 1, d),
-  );
-}
 
 export default async function BuscarPage({ searchParams }: Props) {
   const sp = await searchParams;
   const o = sp.origin ? airport(sp.origin) : undefined;
   const d = sp.destination ? airport(sp.destination) : undefined;
   const adults = Number(sp.adults) || 1;
+  const roundTrip = Boolean(sp.ret);
+  const flex = sp.flex === "1";
+
+  const fares =
+    o && d
+      ? await cheapestForRoute(o.iata, d.iata, {
+          month: sp.date ? sp.date.slice(0, 7) : undefined,
+          retMonth: sp.ret ? sp.ret.slice(0, 7) : undefined,
+          oneWay: !roundTrip,
+          limit: 30,
+        })
+      : [];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-12 sm:px-8">
@@ -42,27 +48,36 @@ export default async function BuscarPage({ searchParams }: Props) {
       </nav>
 
       <h1 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-        {o && d ? `${o.city} - ${d.city}` : "Buscar voos"}
+        {o && d ? `${o.city} para ${d.city}` : "Buscar voos"}
       </h1>
       {o && d && (
         <p className="mt-1 text-sm text-muted">
-          {o.iata} &rarr; {d.iata}
-          {sp.date ? ` · ${fmtDate(sp.date)}` : ""}
-          {sp.ret ? ` - ${fmtDate(sp.ret)}` : ""}
-          {` · ${adults} ${adults === 1 ? "adulto" : "adultos"}`}
+          {o.iata} &rarr; {d.iata} · {roundTrip ? "ida e volta" : "só ida"} · {adults}{" "}
+          {adults === 1 ? "adulto" : "adultos"}
+          {flex ? " · datas flexíveis (mês inteiro)" : ""}
         </p>
       )}
 
-      {o && d ? (
-        <BuscarResults
-          origin={o.iata}
-          destination={d.iata}
-          date={sp.date}
-          ret={sp.ret}
-          adults={adults}
-        />
-      ) : (
+      {!o || !d ? (
         <p className="mt-6 text-muted">Informe origem e destino na busca.</p>
+      ) : fares.length === 0 ? (
+        <div className="mt-6 rounded-[20px] border border-line bg-surface p-8 text-center">
+          <p className="font-display font-bold text-ink">
+            Não encontramos preços para essa rota agora
+          </p>
+          <p className="mx-auto mt-1 max-w-md text-sm text-muted">
+            Os preços são coletados das buscas mais recentes. Tente outra data,
+            outra rota, ou volte mais tarde.
+          </p>
+        </div>
+      ) : (
+        <>
+          <Results fares={fares} roundTrip={roundTrip} />
+          <p className="mt-5 text-center text-xs text-muted-2">
+            Preços a partir de, coletados nas buscas mais recentes e sujeitos a
+            alteração. Ao reservar você é levado ao site do parceiro.
+          </p>
+        </>
       )}
     </div>
   );

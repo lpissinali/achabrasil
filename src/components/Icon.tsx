@@ -53,6 +53,7 @@ const PATHS: Record<string, React.ReactNode> = {
       <circle cx="12" cy="10" r="2.5" />
     </>
   ),
+  bed: <path d="M3 7v10M3 12h18v5M21 12v-1a3 3 0 0 0-3-3h-6v4M7 11.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />,
 };
 
 export default function Icon({
