@@ -7,14 +7,9 @@ runConfig:
   cpu: 1
   memoryMiB: 512
 
-# Add environment variables and secrets here when needed, e.g.:
-# env:
-#   - variable: NEXT_PUBLIC_TP_MARKER
-#     value: "your-marker"
-#     availability:
-#       - BUILD
-#       - RUNTIME
-#   - variable: RESEND_API_KEY
-#     secret: RESEND_API_KEY
-#     availability:
-#       - RUNTIME
+env:
+  - variable: NEXT_PUBLIC_GA_ID
+    value: "G-MKT7NFWJ5Z"
+    availability:
+      - BUILD
+      - RUNTIME
