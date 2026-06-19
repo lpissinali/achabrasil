@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   description:
     "Veja todas as rotas de voos domésticos e internacionais com saída do Brasil. Compare preços da GOL, LATAM e Azul e ache passagens baratas para os principais destinos.",
   alternates: { canonical: `${SITE.url}/voos` },
+  openGraph: {
+    type: "website",
+    title: "Voos baratos pelo Brasil - todas as rotas",
+    description:
+      "Veja todas as rotas de voos domésticos e internacionais com saída do Brasil. Compare preços da GOL, LATAM e Azul e ache passagens baratas para os principais destinos.",
+    url: `${SITE.url}/voos`,
+    siteName: SITE.name,
+    locale: "pt_BR",
+  },
 };
 
 const FAQ = [

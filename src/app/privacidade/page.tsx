@@ -14,7 +14,7 @@ export default function PrivacidadePage() {
     <LegalShell
       title="Política de Privacidade"
       updated="18 de junho de 2026"
-      intro="Esta Política explica como o AchaBrasil trata seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD). Este é um modelo e deve ser revisado por um profissional antes do lançamento."
+      intro="Esta Política explica como o AchaBrasil trata seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD)."
     >
       <h2>1. Quem é o controlador</h2>
       <p>

@@ -46,7 +46,7 @@ export default function LeaveNotice({
               Voce esta saindo do AchaBrasil
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Para concluir a reserva voce sera levado para o site de {partner}.
+              Para concluir a reserva você será levado para o site de {partner}.
               A compra e feita diretamente com o parceiro, em ambiente seguro.
             </p>
             <div className="mt-6 flex gap-3">

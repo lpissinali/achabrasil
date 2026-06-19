@@ -28,12 +28,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const route = parseRouteSlug(slug);
   if (!route) return {};
   const title = routeTitle(route);
+  const o = airport(route.origin)!;
+  const d = airport(route.destination)!;
+  const description = `${title}. Compare preços da GOL, LATAM e Azul, veja o melhor dia para voar e ${
+    route.fromPrice ? `passagens a partir de ${formatBRL(route.fromPrice)}.` : "encontre a melhor oferta."
+  }`;
+  const url = `${SITE.url}/voos/${slug}`;
   return {
     title,
-    description: `${title}. Compare precos da GOL, LATAM e Azul, veja o melhor dia para voar e ${
-      route.fromPrice ? `passagens a partir de ${formatBRL(route.fromPrice)}.` : "encontre a melhor oferta."
-    }`,
-    alternates: { canonical: `${SITE.url}/voos/${slug}` },
+    description,
+    keywords: [`voos ${o.city} ${d.city}`, `passagens ${o.city} para ${d.city}`, `voos baratos ${route.origin} ${route.destination}`],
+    alternates: { canonical: url },
+    openGraph: { type: "website", title, description, url, siteName: SITE.name, locale: "pt_BR" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -62,12 +69,12 @@ export default async function RoutePage({ params }: Props) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `Qual o preco das passagens de ${o.city} para ${d.city}?`,
+        name: `Qual o preço das passagens de ${o.city} para ${d.city}?`,
         acceptedAnswer: {
           "@type": "Answer",
           text: cheapest
-            ? `As passagens de ${o.city} (${route.origin}) para ${d.city} (${route.destination}) comecam em torno de ${formatBRL(cheapest)}, variando conforme a data e a antecedencia da compra.`
-            : `Os precos variam conforme a data e a antecedencia. Use a busca para ver as ofertas atuais.`,
+            ? `As passagens de ${o.city} (${route.origin}) para ${d.city} (${route.destination}) começam em torno de ${formatBRL(cheapest)}, variando conforme a data e a antecedência da compra.`
+            : `Os preços variam conforme a data e a antecedência. Use a busca para ver as ofertas atuais.`,
         },
       },
       {

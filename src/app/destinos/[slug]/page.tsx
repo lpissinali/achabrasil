@@ -31,10 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = airport(slug);
   if (!a) return {};
   const g = cityGuide(a);
+  const title = `${a.city} - voos baratos, o que fazer e quando ir`;
+  const description = `${g.tagline}. ${g.about.slice(0, 120)}... Veja voos baratos para ${a.city} e dicas de viagem.`;
+  const url = `${SITE.url}/destinos/${slug}`;
   return {
-    title: `${a.city} - voos baratos, o que fazer e quando ir`,
-    description: `${g.tagline}. ${g.about.slice(0, 120)}... Veja voos baratos para ${a.city} e dicas de viagem.`,
-    alternates: { canonical: `${SITE.url}/destinos/${slug}` },
+    title,
+    description,
+    keywords: [`o que fazer em ${a.city}`, `voos para ${a.city}`, `passagens ${a.city}`, `viagem ${a.city}`],
+    alternates: { canonical: url },
+    openGraph: { type: "website", title, description, url, siteName: SITE.name, locale: "pt_BR" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Icon from "./Icon";
 
 const BUDGETS: { label: string; value: string }[] = [
-  { label: "ate R$ 200", value: "200" },
+  { label: "até R$ 200", value: "200" },
   { label: "R$ 400", value: "400" },
   { label: "R$ 600", value: "600" },
   { label: "Tanto faz", value: "" },
@@ -34,11 +34,11 @@ export default function MeSurpreenda() {
           Me surpreenda
         </span>
         <h3 className="mb-2 mt-4 font-display text-[26px] font-extrabold leading-tight tracking-tight sm:text-[30px]">
-          Diz teu orcamento.
+          Diz teu orçamento.
           <br />A gente acha o destino.
         </h3>
         <p className="mb-5 max-w-[420px] text-[15.5px] leading-snug text-white/90">
-          Escolha de onde quer sair e quanto quer gastar - mostramos pra onde da
+          Escolha de onde quer sair e quanto quer gastar — mostramos pra onde dá
           pra voar agora.
         </p>
         <div className="flex flex-wrap gap-2.5">

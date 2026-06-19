@@ -98,7 +98,7 @@ export default function DatePicker({
               type="button"
               onClick={() => move(1)}
               className="grid h-8 w-8 place-items-center rounded-lg hover:bg-teal-soft"
-              aria-label="Proximo mes"
+              aria-label="Próximo mês"
             >
               <Icon name="chevR" size={16} color="var(--ink)" />
             </button>

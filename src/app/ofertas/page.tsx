@@ -12,6 +12,15 @@ export const metadata: Metadata = {
   description:
     "As passagens mais baratas saindo da sua cidade agora. Ofertas de voos para Salvador, Recife, Fortaleza, Florianópolis e mais destinos do Brasil, em reais.",
   alternates: { canonical: `${SITE.url}/ofertas` },
+  openGraph: {
+    type: "website",
+    title: "Ofertas de voos - passagens baratas saindo da sua cidade",
+    description:
+      "As passagens mais baratas saindo da sua cidade agora. Ofertas de voos para Salvador, Recife, Fortaleza, Florianópolis e mais destinos do Brasil, em reais.",
+    url: `${SITE.url}/ofertas`,
+    siteName: SITE.name,
+    locale: "pt_BR",
+  },
 };
 
 const FAQ = [

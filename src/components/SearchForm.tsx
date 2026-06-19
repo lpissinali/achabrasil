@@ -7,7 +7,7 @@ import DatePicker from "./DatePicker";
 import Select, { type Option } from "./Select";
 import PassengerPicker, { type Pax } from "./PassengerPicker";
 
-const TRIPS = ["Ida e volta", "So ida"];
+const TRIPS = ["Ida e volta", "Só ida"];
 
 const AIRPORT_OPTIONS: Option[] = Object.values(AIRPORTS).map((a) => ({
   value: a.iata,

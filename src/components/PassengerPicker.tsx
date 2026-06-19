@@ -8,7 +8,7 @@ export type Pax = { adults: number; children: number; infants: number };
 const ROWS: { key: keyof Pax; label: string; sub: string; min: number }[] = [
   { key: "adults", label: "Adultos", sub: "12+ anos", min: 1 },
   { key: "children", label: "Criancas", sub: "2-11 anos", min: 0 },
-  { key: "infants", label: "Bebes", sub: "ate 2 anos", min: 0 },
+  { key: "infants", label: "Bebês", sub: "até 2 anos", min: 0 },
 ];
 
 export function paxSummary(p: Pax): string {

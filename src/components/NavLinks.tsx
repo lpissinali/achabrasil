@@ -7,7 +7,7 @@ export const NAV = [
   { href: "/voos", label: "Voos" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/destinos", label: "Destinos" },
-  { href: "/alertas", label: "Alertas de preco" },
+  { href: "/alertas", label: "Alertas de preço" },
   { href: "/blog", label: "Blog" },
 ];
 

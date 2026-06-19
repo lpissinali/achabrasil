@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DestinationCard from "@/components/DestinationCard";
 import { offersFromCity } from "@/lib/tp-data";
 import { destMeta, FEATURED_NACIONAIS, FEATURED_INTL } from "@/lib/destinations";
+import { SITE } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,16 @@ export const metadata: Metadata = {
   title: "Destinos - voos baratos pelo Brasil e exterior",
   description:
     "Os destinos mais procurados saindo de São Paulo, com preços a partir de. Rio de Janeiro, Salvador, Recife, Buenos Aires, Lisboa, Miami e mais.",
+  alternates: { canonical: `${SITE.url}/destinos` },
+  openGraph: {
+    type: "website",
+    title: "Destinos - voos baratos pelo Brasil e exterior",
+    description:
+      "Os destinos mais procurados saindo de São Paulo, com preços a partir de. Rio de Janeiro, Salvador, Recife, Buenos Aires, Lisboa, Miami e mais.",
+    url: `${SITE.url}/destinos`,
+    siteName: SITE.name,
+    locale: "pt_BR",
+  },
 };
 
 export default async function DestinosIndex() {

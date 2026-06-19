@@ -9,7 +9,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-background/90 backdrop-blur">
       <div className="relative mx-auto flex h-[76px] max-w-[1232px] items-center justify-between px-5 sm:px-14">
         <div className="flex items-center gap-6 lg:gap-11">
-          <Link href="/" aria-label="AchaBrasil - inicio">
+          <Link href="/" aria-label="AchaBrasil - início">
             <Logo size={26} />
           </Link>
           <NavLinks />

@@ -20,7 +20,7 @@ export default function AuthCard({ mode }: { mode: "login" | "signup" }) {
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-5 py-16">
-      <Link href="/" aria-label="AchaBrasil - inicio">
+      <Link href="/" aria-label="AchaBrasil - início">
         <Logo size={28} />
       </Link>
       <h1 className="mt-8 font-display text-2xl font-extrabold tracking-tight">
@@ -29,7 +29,7 @@ export default function AuthCard({ mode }: { mode: "login" | "signup" }) {
       <p className="mt-1 text-sm text-muted">
         {isLogin
           ? "Acompanhe seus alertas e voos favoritos."
-          : "Salve buscas, favoritos e receba alertas de preco."}
+          : "Salve buscas, favoritos e receba alertas de preço."}
       </p>
 
       <form
@@ -56,7 +56,7 @@ export default function AuthCard({ mode }: { mode: "login" | "signup" }) {
 
         {done && (
           <p className="rounded-xl bg-teal-soft px-4 py-3 text-sm font-semibold text-teal-dark">
-            Login ainda nao esta ativo. Conecte o Firebase Authentication para
+            Login ainda não está ativo. Conecte o Firebase Authentication para
             habilitar.
           </p>
         )}

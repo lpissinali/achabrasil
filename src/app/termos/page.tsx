@@ -14,7 +14,7 @@ export default function TermosPage() {
     <LegalShell
       title="Termos de uso"
       updated="18 de junho de 2026"
-      intro="Ao acessar e usar o AchaBrasil, você concorda com estes Termos de uso. Leia com atenção. Este documento é um modelo e deve ser revisado por um advogado antes do lançamento comercial."
+      intro="Ao acessar e usar o AchaBrasil, você concorda com estes Termos de uso. Leia com atenção."
     >
       <h2>1. Sobre o serviço</h2>
       <p>

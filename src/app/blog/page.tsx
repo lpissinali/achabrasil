@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   description:
     "Dicas práticas para economizar em passagens aéreas: melhor época para comprar, regras de bagagem da GOL, LATAM e Azul, e como achar voos baratos.",
   alternates: { canonical: `${SITE.url}/blog` },
+  openGraph: {
+    type: "website",
+    title: "Blog - dicas de viagem e passagens baratas",
+    description:
+      "Dicas práticas para economizar em passagens aéreas: melhor época para comprar, regras de bagagem da GOL, LATAM e Azul, e como achar voos baratos.",
+    url: `${SITE.url}/blog`,
+    siteName: SITE.name,
+    locale: "pt_BR",
+  },
 };
 
 export default function BlogIndex() {
