@@ -79,13 +79,13 @@ export default async function Home() {
         </div>
         <div className={`${SECTION} relative pt-12 text-center sm:pt-16`}>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-soft px-3.5 py-1.5 text-[13px] font-bold text-teal-dark">
-            <Icon name="bolt" size={14} stroke={2.4} color="var(--teal-dark)" /> Voos domesticos a partir de R$ 98
+            <Icon name="bolt" size={14} stroke={2.4} color="var(--teal-dark)" /> Voos domésticos a partir de R$ 98
           </span>
           <h1 className="mx-auto mt-5 max-w-[820px] font-display text-[38px] font-extrabold leading-[1.03] tracking-tight sm:text-[58px]">
-            Passagens baratas, <span className="text-teal">sem complicacao.</span>
+            Passagens baratas, <span className="text-teal">sem complicação.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-[580px] text-[17px] text-muted sm:text-[19px]">
-            Comparamos GOL, LATAM, Azul e +20 companhias em segundos. Voce so escolhe o melhor preco.
+            Comparamos GOL, LATAM, Azul e +20 companhias em segundos. Você só escolhe o melhor preço.
           </p>
 
           <div className="mt-9">
@@ -106,7 +106,7 @@ export default async function Home() {
                 <Icon name="check" size={16} stroke={2.6} color="var(--teal)" /> Sem taxas escondidas
               </span>
               <span className="flex items-center gap-1.5 text-[13.5px] font-semibold text-muted">
-                <Icon name="check" size={16} stroke={2.6} color="var(--teal)" /> Alerta de preco gratis
+                <Icon name="check" size={16} stroke={2.6} color="var(--teal)" /> Alerta de preço grátis
               </span>
             </div>
           </div>
@@ -250,10 +250,10 @@ export default async function Home() {
           <Icon name="bell" size={200} color="rgba(255,255,255,0.05)" style={{ position: "absolute", right: 40, top: -30 }} />
           <div className="relative">
             <h2 className="font-display text-2xl font-bold tracking-tight text-white sm:text-[28px]">
-              Te avisamos quando o preco cair.
+              Te avisamos quando o preço cair.
             </h2>
             <p className="mt-2 text-base text-white/60">
-              Escolha sua rota e o valor que quer pagar. Sem cadastro - so o seu e-mail.
+              Escolha sua rota e o valor que quer pagar. Sem cadastro — só o seu e-mail.
             </p>
           </div>
           <Link href="/alertas" className="relative flex flex-shrink-0 gap-2.5">

@@ -3,9 +3,8 @@
 import Script from "next/script";
 
 /**
- * GA4 with Google Consent Mode v2. Analytics storage defaults to "denied"
- * and is granted only after the user accepts in the cookie banner
- * (CookieConsent writes ab_consent_v1 and calls gtag consent update).
+ * GA4 (Google Analytics 4). Fires for all visitors. Analytics storage is
+ * granted by default; the cookie banner can still tighten ad personalization.
  * Renders nothing unless NEXT_PUBLIC_GA_ID is set.
  */
 export default function GoogleAnalytics({ gaId }: { gaId?: string }) {
@@ -14,8 +13,7 @@ export default function GoogleAnalytics({ gaId }: { gaId?: string }) {
     <>
       <Script id="ga-consent-default" strategy="beforeInteractive">
         {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-var __c='denied';try{var s=JSON.parse(localStorage.getItem('ab_consent_v1')||'null');if(s&&s.value==='all')__c='granted';}catch(e){}
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:__c});`}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});`}
       </Script>
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
       <Script id="ga-init" strategy="afterInteractive">

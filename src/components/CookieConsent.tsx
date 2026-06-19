@@ -25,12 +25,11 @@ export default function CookieConsent() {
     } catch {
       /* ignore */
     }
-    // expose choice + update Google Consent Mode if GA is present
+    // Analytics stays on for everyone; the banner only governs ad personalization.
     (window as unknown as { __abConsent?: string }).__abConsent = value;
     const w = window as unknown as { gtag?: (...args: unknown[]) => void };
     if (typeof w.gtag === "function") {
       w.gtag("consent", "update", {
-        analytics_storage: value === "all" ? "granted" : "denied",
         ad_storage: value === "all" ? "granted" : "denied",
         ad_user_data: value === "all" ? "granted" : "denied",
         ad_personalization: value === "all" ? "granted" : "denied",
