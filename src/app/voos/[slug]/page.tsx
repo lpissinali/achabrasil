@@ -5,6 +5,7 @@ import Icon from "@/components/Icon";
 import Results from "@/components/Results";
 import { ROUTES, parseRouteSlug, routeSlug, routeTitle } from "@/lib/routes";
 import { airport } from "@/lib/airports";
+import { countrypickGuide } from "@/lib/countrypick";
 import { cheapestForRoute } from "@/lib/tp-data";
 import { formatBRL, SITE } from "@/lib/site";
 
@@ -53,6 +54,7 @@ export default async function RoutePage({ params }: Props) {
   const d = airport(route.destination)!;
   const title = routeTitle(route);
   const month = targetMonth();
+  const cpD = countrypickGuide(d);
 
   const fares = await cheapestForRoute(route.origin, route.destination, {
     month,
@@ -167,6 +169,35 @@ export default async function RoutePage({ params }: Props) {
           dia para voar e ative um alerta de preço para ser avisado quando cair.
         </p>
       </section>
+
+      {/* GUIA DO DESTINO - Country Pick (sister site) */}
+      {cpD && (
+        <section className="mt-10">
+          <a
+            href={cpD.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between gap-4 rounded-[20px] border border-line bg-surface px-6 py-5 transition-shadow hover:shadow-md"
+          >
+            <span className="flex items-center gap-3">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] bg-teal-soft">
+                <Icon name="pin" size={20} color="var(--teal)" />
+              </span>
+              <span>
+                <span className="block font-bold text-ink">
+                  {cpD.level === "city"
+                    ? `Chegou em ${d.city}? Veja o que fazer`
+                    : `O que fazer em ${d.city} — guia de ${cpD.place}`}
+                </span>
+                <span className="block text-[13px] text-muted-2">
+                  Atrações, passeios e dicas de viagem — no Country Pick
+                </span>
+              </span>
+            </span>
+            <Icon name="chevR" size={18} stroke={2.4} color="var(--teal)" />
+          </a>
+        </section>
+      )}
     </article>
   );
 }

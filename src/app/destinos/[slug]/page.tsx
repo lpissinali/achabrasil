@@ -6,6 +6,7 @@ import LeaveNotice from "@/components/LeaveNotice";
 import { AIRPORTS, airport } from "@/lib/airports";
 import { cityGuide } from "@/lib/city-content";
 import { GRADIENT, DEST_META } from "@/lib/destinations";
+import { countrypickGuide } from "@/lib/countrypick";
 import { hotellookUrl } from "@/lib/travelpayouts";
 import { lowestPrice } from "@/lib/tp-data";
 import { formatBRL, SITE } from "@/lib/site";
@@ -51,6 +52,7 @@ export default async function DestinationPage({ params }: Props) {
 
   const g = cityGuide(a);
   const tone = toneFor(a.iata, a.intl);
+  const cp = countrypickGuide(a);
   const heroBg = `linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.6)), url('/destinos/${a.iata.toLowerCase()}.jpg'), ${GRADIENT[tone]}`;
 
   // "a partir de" from São Paulo (best-effort; null if no cached fare).
@@ -153,6 +155,35 @@ export default async function DestinationPage({ params }: Props) {
         </div>
         <p className="mt-2 leading-relaxed text-teal-dark/90">{g.bestTime}</p>
       </section>
+
+      {/* GUIA DE VIAGEM - Country Pick (sister site) */}
+      {cp && (
+        <section className="mt-8">
+          <a
+            href={cp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between gap-4 rounded-[20px] border border-line bg-surface px-6 py-5 transition-shadow hover:shadow-md"
+          >
+            <span className="flex items-center gap-3">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] bg-teal-soft">
+                <Icon name="pin" size={20} color="var(--teal)" />
+              </span>
+              <span>
+                <span className="block font-bold text-ink">
+                  {cp.level === "city"
+                    ? `Guia completo: o que fazer em ${cp.place}`
+                    : `Guia de viagem de ${cp.place}`}
+                </span>
+                <span className="block text-[13px] text-muted-2">
+                  Atrações, passeios e quando ir — no Country Pick
+                </span>
+              </span>
+            </span>
+            <Icon name="chevR" size={18} stroke={2.4} color="var(--teal)" />
+          </a>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="mt-8 flex flex-col items-center gap-3 rounded-[22px] border border-line bg-surface p-7 text-center">
