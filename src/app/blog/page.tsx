@@ -41,7 +41,11 @@ export default function BlogIndex() {
           >
             <div
               className="flex h-[150px] items-end p-4"
-              style={{ background: GRADIENT[p.tone] }}
+              style={{
+                backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.45)), url('/blog/${p.slug}.jpg'), ${GRADIENT[p.tone]}`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
             >
               <span className="rounded-full bg-white/90 px-3 py-1 text-[12px] font-bold text-ink">
                 {p.readMins} min de leitura

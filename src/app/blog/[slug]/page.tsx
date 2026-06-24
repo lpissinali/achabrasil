@@ -20,7 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.excerpt,
     alternates: { canonical: `${SITE.url}/blog/${post.slug}` },
-    openGraph: { type: "article", title: post.title, description: post.excerpt, publishedTime: post.date },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE.url}/blog/${post.slug}`,
+      siteName: SITE.name,
+      locale: "pt_BR",
+      publishedTime: post.date,
+      images: [`${SITE.url}/blog/${post.slug}.jpg`],
+    },
+    twitter: { card: "summary_large_image", title: post.title, description: post.excerpt },
   };
 }
 
@@ -34,6 +44,7 @@ export default async function BlogPost({ params }: Props) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
+    image: `${SITE.url}/blog/${post.slug}.jpg`,
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: SITE.name },
@@ -58,7 +69,14 @@ export default async function BlogPost({ params }: Props) {
         {post.title}
       </h1>
 
-      <div className="mt-5 h-2 w-full rounded-full" style={{ background: GRADIENT[post.tone] }} />
+      <div
+        className="mt-5 h-[220px] w-full overflow-hidden rounded-[20px] sm:h-[300px]"
+        style={{
+          backgroundImage: `url('/blog/${post.slug}.jpg'), ${GRADIENT[post.tone]}`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
       <div className="prose-doc mt-7">
         {post.blocks.map((b, i) => (
@@ -76,7 +94,6 @@ export default async function BlogPost({ params }: Props) {
         ))}
       </div>
 
-      {/* CTA */}
       <div className="mt-10 flex flex-col items-center gap-3 rounded-[22px] border border-line bg-surface p-7 text-center">
         <h2 className="font-display text-xl font-bold tracking-tight">Pronto para achar sua passagem?</h2>
         <p className="max-w-md text-sm text-muted">
@@ -87,7 +104,6 @@ export default async function BlogPost({ params }: Props) {
         </Link>
       </div>
 
-      {/* related */}
       <div className="mt-10">
         <h2 className="mb-4 font-display text-lg font-bold tracking-tight">Leia também</h2>
         <div className="grid gap-3 sm:grid-cols-2">
