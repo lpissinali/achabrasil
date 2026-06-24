@@ -6,6 +6,7 @@
 import type { Airport } from "./airports";
 
 const CP_BASE = "https://www.countrypick.com";
+const UTM = "?utm_source=achabrasil&utm_medium=referral";
 
 /** Country name (as stored in Airport.state for international airports) ->
  *  Country Pick country slug. */
@@ -64,12 +65,12 @@ export type CountryPickGuide = {
 /** Best matching Country Pick guide for a destination airport, or null. */
 export function countrypickGuide(a: Airport): CountryPickGuide | null {
   const city = CITY_PATH[a.iata];
-  if (city) return { url: CP_BASE + city, level: "city", place: a.city };
+  if (city) return { url: CP_BASE + city + UTM, level: "city", place: a.city };
   if (a.intl) {
     const slug = COUNTRY_SLUG[a.state];
-    if (slug) return { url: CP_BASE + "/pt/" + slug, level: "country", place: a.state };
+    if (slug) return { url: CP_BASE + "/pt/" + slug + UTM, level: "country", place: a.state };
     return null;
   }
   // Domestic fallback: the Brazil country guide.
-  return { url: CP_BASE + "/pt/brazil", level: "country", place: "Brasil" };
+  return { url: CP_BASE + "/pt/brazil" + UTM, level: "country", place: "Brasil" };
 }
